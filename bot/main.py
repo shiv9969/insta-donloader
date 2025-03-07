@@ -1,7 +1,7 @@
 import re
 import logging
 from pyrogram import Client, filters
-from bot.downloader import download_instagram_video
+from downloader import download_instagram_video
 from config.settings import API_ID, API_HASH, BOT_TOKEN
 
 # Logging
