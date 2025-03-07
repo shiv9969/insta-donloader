@@ -30,7 +30,7 @@ async def insta_downloader(client, message):
 
     video_path = download_instagram_video(insta_url)
     if video_path:
-        await message.reply_video(video_path, caption="Here is your Instagram video! 📲")
+        await message.reply_video(video_path, caption="@BoB_Files1 📲")
     else:
         await message.reply_text("❌ Failed to download the Instagram video.")
 
