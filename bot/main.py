@@ -3,6 +3,7 @@ import re
 import logging
 import asyncio
 import uvicorn
+import logging
 from fastapi import FastAPI
 from pyrogram import Client, filters
 from downloader import download_instagram_video
@@ -30,8 +31,14 @@ async def start_command(client, message):
 # Instagram URL Pattern
 INSTAGRAM_REGEX = r"(https?:\/\/)?(www\.)?(instagram\.com\/(?:p|reel|tv|stories)\/[a-zA-Z0-9_-]+)"
 
+# Enable logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 @bot.on_message(filters.text & (filters.private | filters.group))
 async def insta_downloader(client, message):
+    logger.info(f"Received message: {message.text}")  # Debugging log
+
     text = message.text.strip()
     if not text:
         return
@@ -39,11 +46,11 @@ async def insta_downloader(client, message):
     # Check if the message contains an Instagram link
     match = re.search(INSTAGRAM_REGEX, text)
     if not match:
+        logger.info("Ignoring non-Instagram link.")  # Debugging log
         return  # Ignore non-Instagram links
 
     insta_url = match.group(0)
     await message.reply_text("🔄 Downloading... Please wait.")
-
     video_path = download_instagram_video(insta_url)
 
     if video_path:
