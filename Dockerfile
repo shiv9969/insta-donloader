@@ -1,17 +1,17 @@
-# Use an official Python runtime as base
+# Use official Python image
 FROM python:3.10
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file
-COPY requirements.txt .
+# Copy all files
+COPY . .
+
+# Set Python path to include the bot directory
+ENV PYTHONPATH="${PYTHONPATH}:/app"
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the bot code into the container
-COPY . .
-
-# Command to run the bot
+# Run the bot
 CMD ["python", "bot/main.py"]
